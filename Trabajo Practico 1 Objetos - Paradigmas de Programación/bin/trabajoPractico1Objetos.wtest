@@ -1,0 +1,178 @@
+import example.*
+
+	test "conocer el nivelHechiceria de Rolando" {
+		rolando.hechizoPreferido(espectroMalefico)
+		assert.equals(56, rolando.nivelHechiceria())
+	}
+
+	test "cambiar nombre a echizo malefico y conocer nivelHechiceria de Rolando"{
+		rolando.hechizoPreferido(espectroMalefico)
+		espectroMalefico.cambiarNombre("espectro superrecontramalefico muajajaja")
+		assert.equals(125, rolando.nivelHechiceria())
+	}
+
+	test "cambiar el hechizo preferido y conocer el nivelHechiceria de Rolando"{
+		rolando.hechizoPreferido(espectroMalefico)
+		rolando.hechizoPreferido(hechizoBasico)
+		assert.equals(35, rolando.nivelHechiceria())
+	}
+
+	test "hacer que ocurra un eclipse y conocer el nivelHechiceria de Rolando"{
+		rolando.hechizoPreferido(espectroMalefico)
+		fuerzaOscura.eclipse()
+		assert.equals(61, rolando.nivelHechiceria())
+	}
+
+	test"saber si el espectro malefico es poderoso"{
+		rolando.hechizoPreferido(espectroMalefico)
+		assert.that(espectroMalefico.hechizoPoderoso())
+	}
+
+	test "cambiar el nombre del espectro malefico y saber si es poderoso"{
+		rolando.hechizoPreferido(espectroMalefico)
+		espectroMalefico.cambiarNombre("pepe")
+		assert.that(! espectroMalefico.hechizoPoderoso())
+	}
+
+	test "el hechizoBasico no es poderoso"{
+		rolando.hechizoPreferido(espectroMalefico)
+		assert.that(! hechizoBasico.hechizoPoderoso())
+	}
+
+test "eliminar artefactos y conocer habilidadLucha"{
+	rolando.removerTodosLosArtefactos()
+	assert.equals(1,rolando.habilidadLucha())
+}
+
+test "conocer la habilidad de lucha de rolando con todos los artefactos"{
+	collarDivino.perlas(5)
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarArtefacto(espadaDelDestino)
+	assert.equals(13,rolando.habilidadLucha())
+}
+
+test "cambiar la cant de perlas a 3, conocer la habilidadLucha con todos los arts."{
+	collarDivino.perlas(5)
+	collarDivino.perlas(3)
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarArtefacto(espadaDelDestino)
+	assert.equals(11,rolando.habilidadLucha())
+}
+
+test "cambiar base de lucha 8. Conocer hab. lucha con todos los artefactos"{
+	collarDivino.perlas(5)
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarArtefacto(espadaDelDestino)	
+	rolando.valorBaseLucha(8)
+	assert.equals(20,rolando.habilidadLucha())
+}
+
+test "eclipse y conocer valor de mascara oscura"{
+	collarDivino.perlas(5)
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarArtefacto(espadaDelDestino)	
+	fuerzaOscura.eclipse()
+	assert.equals(5,mascaraOscura.unidadesDeLucha(rolando))
+}
+
+test "eliminar mascara oscura de los de rolando y habLucha = 9"{
+	collarDivino.perlas(5)
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarArtefacto(espadaDelDestino)	
+	rolando.removerArtefacto(mascaraOscura)
+	assert.equals(9,rolando.habilidadLucha())
+}
+
+test "Rolando esta cargado?"{
+	collarDivino.perlas(5)
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarArtefacto(espadaDelDestino)	
+	rolando.agregarArtefacto(espejo)
+	rolando.agregarArtefacto(armadura)
+	assert.that(rolando.estaCargado())
+}
+
+test "Rolando se saca la armadura"{
+	collarDivino.perlas(5)
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(collarDivino)
+	rolando.agregarArtefacto(espadaDelDestino)	
+	rolando.agregarArtefacto(espejo)
+	rolando.agregarArtefacto(armadura)
+	rolando.removerArtefacto(armadura)
+	assert.that(! rolando.estaCargado())
+}
+
+test "habilidadLucha de Rolando"{
+	rolando.agregarArtefacto(mascaraOscura)
+	rolando.agregarArtefacto(collarDivino)
+		collarDivino.perlas(5)
+	rolando.agregarArtefacto(espadaDelDestino)	
+	rolando.agregarArtefacto(espejo)
+	rolando.agregarArtefacto(armadura)
+	assert.equals(20,rolando.habilidadLucha())
+}
+
+test "La habilidad de lucha de la armadura con una bendicion de refuerzo es 58"{
+	rolando.hechizoPreferido(espectroMalefico)
+	rolando.agregarArtefacto(armadura)
+	armadura.refuerzo(bendicion)
+	assert.equals(58, armadura.unidadesDeLucha(rolando)) 
+}
+
+test "La habilidad de lucha de Ronaldo con una cota de malla de refuerzo es 3"{
+	rolando.agregarArtefacto(armadura)
+	armadura.refuerzo(cotaDeMalla)
+	assert.equals(3, armadura.unidadesDeLucha(rolando)) 
+}
+
+test "La habilidad de lucha de la armadura con un hechizo basico de refuerzo es 12"{
+	rolando.agregarArtefacto(armadura)
+	armadura.refuerzo(hechizoBasico)
+	assert.equals(12, armadura.unidadesDeLucha(rolando)) 
+}
+
+test "La habilidad de lucha de la armadura con el hechizo espectro malefico de refuerzo es 19"{
+	rolando.agregarArtefacto(armadura)
+	armadura.refuerzo(espectroMalefico)
+	assert.equals(19, armadura.unidadesDeLucha(rolando)) 
+}
+
+test "La habilidad de lucha de Rolando con un espejo es 1"{
+	rolando.agregarArtefacto(espejo)
+	assert.equals(1, rolando.habilidadLucha()) 
+}
+
+test "El nivel de hechiceria de Rolando con un libro de hechizos con espectro malefico y hechizo basico es 56"{
+	rolando.hechizoPreferido(libroDeHechizos)
+	libroDeHechizos.agregarAListaHechizos(espectroMalefico)
+	libroDeHechizos.agregarAListaHechizos(hechizoBasico)
+	assert.equals(56, rolando.nivelHechiceria()) 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
