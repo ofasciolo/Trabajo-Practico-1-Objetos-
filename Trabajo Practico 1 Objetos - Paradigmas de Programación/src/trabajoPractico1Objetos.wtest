@@ -1,4 +1,4 @@
-import example.*
+import trabajoPractico1Objetos.*
 
 	test "conocer el nivelHechiceria de Rolando" {
 		rolando.hechizoPreferido(espectroMalefico)
