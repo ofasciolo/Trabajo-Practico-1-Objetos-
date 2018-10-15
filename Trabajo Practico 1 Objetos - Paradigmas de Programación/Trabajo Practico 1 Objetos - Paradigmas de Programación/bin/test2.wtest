@@ -1,0 +1,66 @@
+import trabajoPractico1Objetos.*
+import Clases.*
+
+describe "tests 2"{
+	
+	var rolando
+	var espectroMalefico
+	var mascaraClara
+	
+	fixture{
+		espectroMalefico = new Logo("Espectro Malefico",1)
+		rolando = new Personaje(espectroMalefico,[])
+		collarDivino.perlas(5)
+		rolando.agregarArtefacto(mascaraOscura)
+		rolando.agregarArtefacto(collarDivino)
+		rolando.agregarArtefacto(espadaDelDestino)
+		mascaraClara = new Mascara(0)
+	}
+
+test "eliminar artefactos y conocer habilidadLucha"{
+	rolando.removerTodosLosArtefactos()
+	assert.equals(1,rolando.habilidadLucha())
+}
+
+test "conocer la habilidad de lucha de rolando con todos los artefactos"{
+	
+	assert.equals(13,rolando.habilidadLucha())
+}
+
+test "cambiar la cant de perlas a 3, conocer la habilidadLucha con todos los arts."{
+	collarDivino.perlas(3)
+	assert.equals(11,rolando.habilidadLucha())
+}
+
+test "cambiar base de lucha 8. Conocer hab. lucha con todos los artefactos"{
+	rolando.valorBaseLucha(8)
+	assert.equals(20,rolando.habilidadLucha())
+}
+
+test "eclipse y conocer valor de mascara oscura"{
+	fuerzaOscura.eclipse()
+	assert.equals(5,mascaraOscura.unidadesDeLucha(rolando))
+}
+
+test "eliminar mascara oscura de los de rolando y habLucha = 9"{
+	rolando.removerArtefacto(mascaraOscura)
+	assert.equals(9,rolando.habilidadLucha())
+}
+
+test "tener mascara no oscura"{
+	rolando.agregarArtefacto(mascaraClara)
+	assert.equals(4,mascaraClara.unidadesDeLucha(rolando))
+}
+
+test "tener mascara no oscura y con minimo 2"{
+	rolando.agregarArtefacto(mascaraClara)
+	mascaraClara.minimo(2)
+	assert.equals(2,mascaraClara.unidadesDeLucha(rolando))
+}
+
+
+
+
+
+
+}
