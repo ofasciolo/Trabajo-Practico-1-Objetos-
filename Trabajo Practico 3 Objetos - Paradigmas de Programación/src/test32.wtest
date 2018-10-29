@@ -1,0 +1,82 @@
+import trabajoPractico1Objetos.*
+import Clases.*
+
+describe "tp 3 punto 2"{
+	var espadaVieja
+	var espadaNueva
+	var espadaComun
+	var mascaraClara
+	var cotaDeMalla
+	var armaduraConCota
+	var espectroMalefico
+	var armaduraHechizoPar
+	var armaduraHechizoImpar
+	var armaduraSinRefuerzo
+	var mockHnos
+	var merlin
+	var ursula
+	var collarDivino
+	fixture{
+		espadaVieja = new Espada(7,4557)
+		espadaNueva = new Espada(4,0)
+		espadaComun = new Espada(5,50) // la mascara oscura ya existe
+		mascaraClara = new Mascara(0,2,0)
+		collarDivino = new CollarDivino(5,2.5,0)
+		cotaDeMalla = new CotaDeMalla(5)
+		armaduraConCota = new Armadura(cotaDeMalla,2,10,0)
+		espectroMalefico = new Logo("espectro malefico",1)
+		armaduraHechizoPar = new Armadura(hechizoComercial,2,12,0)
+		armaduraHechizoImpar = new Armadura(espectroMalefico,2,12,0)
+		armaduraSinRefuerzo = new Armadura(refuerzoNulo,2,12,0)
+		mockHnos = new Comerciante(independiente,[mascaraOscura,mascaraClara,armaduraHechizoPar],0)
+		merlin = new Personaje(espectroMalefico,[],10)
+		ursula = new Personaje(espectroMalefico,[mascaraOscura,armaduraConCota],200)
+	}
+	
+	test "saber peso de espada vieja"{
+		assert.equals(6,espadaVieja.pesoTotal(merlin))
+	}
+	test "saber peso de espada nueva"{
+		assert.equals(4,espadaNueva.pesoTotal(merlin))
+	}	
+	test "saber peso de espada comun"{
+		assert.equals(4.5,espadaComun.pesoTotal(merlin))
+	}
+	test "saber peso del collar divino"{
+		assert.equals(2.5,collarDivino.pesoTotal(merlin))
+	}
+	test "saber peso de la mascara oscura"{
+		assert.equals(3,mascaraOscura.pesoTotal(merlin))
+	}
+	test "ocurre eclipse y la mascara oscura engorda"{
+		fuerzaOscura.eclipse()
+		assert.equals(5,mascaraOscura.pesoTotal(merlin))
+	}
+	test "saber peso de mascara clara"{
+		assert.equals(2,mascaraClara.pesoTotal(merlin))
+	}
+	test "saber peso total de armadura con cota"{
+		assert.equals(11,armaduraConCota.pesoTotal(merlin))
+	}
+	test "saber peso total de armadura con hechizo par"{
+		assert.equals(14,armaduraHechizoPar.pesoTotal(merlin))
+	}
+	test "saber peso total de armadura con hechizo impar"{
+		assert.equals(13,armaduraHechizoImpar.pesoTotal(merlin))
+	}
+	test "saber peso de la armadura sin refuerzo"{
+		assert.equals(12,armaduraSinRefuerzo.pesoTotal(merlin))
+	}
+	test "saber peso de merlin con mascaritas"{
+		mockHnos.venderArtefacto(merlin,mascaraClara)
+		mockHnos.venderArtefacto(merlin,mascaraOscura)
+		assert.equals(5,merlin.pesoTotal())
+	}	
+	test "merlin se pasa de vivo y no le sale"{
+		assert.throwsExceptionWithMessage("Error al agregar artefacto: demasiado peso",{=>mockHnos.venderArtefacto(armaduraHechizoPar,merlin)})
+	}
+	test "Ursula no esta comoda con su cuerpo y decide bajar de peso"{
+		ursula.removerArtefacto(armaduraConCota)
+		assert.equals(3,ursula.pesoTotal())
+	}
+}

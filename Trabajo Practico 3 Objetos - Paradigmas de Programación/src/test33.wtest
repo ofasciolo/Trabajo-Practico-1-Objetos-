@@ -1,0 +1,33 @@
+import trabajoPractico1Objetos.*
+import Clases.*
+
+describe "tp 3 punto 3"{
+	
+	var navi
+	var hechizoBasico
+	var ashleyGraham
+	var mascaraClara
+	
+	fixture{
+		hechizoBasico = new Hechizo()
+		navi = new Npc(facil,hechizoBasico,[],5)
+		mascaraClara = new Mascara(0,0,0)
+		ashleyGraham = new Npc(moderado,hechizoBasico,[mascaraClara],5)
+		ashleyGraham.valorBaseLucha(5)
+	}
+	
+	test "conocer habilidad de lucha de navi"{
+		assert.equals(1,navi.habilidadLucha())
+	}
+	test "conocer habilidad de lucha de ashley"{
+		assert.equals(18,ashleyGraham.habilidadLucha())
+	}
+	test "ashley se hace la dificil, conocer su lucha"{
+		ashleyGraham.nivel(dificil)
+		assert.equals(36,ashleyGraham.habilidadLucha())
+	}	
+	
+	
+	
+	
+}

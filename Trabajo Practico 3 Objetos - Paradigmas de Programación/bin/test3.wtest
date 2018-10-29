@@ -1,0 +1,82 @@
+import trabajoPractico1Objetos.*
+import Clases.*
+
+describe "Lucha y hechiceria avanzada"{
+	
+	var rolando
+	var espectroMalefico
+	var hechizoBasico
+	var armadura
+	var cotaDeRolando
+	
+	fixture{
+		hechizoBasico = new Hechizo()
+		cotaDeRolando = new CotaDeMalla(1)
+		armadura = new Armadura(refuerzoNulo,2)
+		espectroMalefico = new Logo("Espectro Malefico",1)
+		rolando = new Personaje(espectroMalefico,[])
+		collarDivino.perlas(5)
+		rolando.agregarArtefacto(mascaraOscura)
+		rolando.agregarArtefacto(collarDivino)
+		rolando.agregarArtefacto(espadaDelDestino)	
+		rolando.agregarArtefacto(espejo)
+		rolando.agregarArtefacto(armadura)
+	}
+
+test "Rolando esta cargado?"{
+	assert.that(rolando.estaCargado())
+}
+
+test "Rolando se saca la armadura"{
+	rolando.removerArtefacto(armadura)
+	assert.that(! rolando.estaCargado())
+}
+
+test "habilidadLucha de Rolando"{
+	assert.equals(20,rolando.habilidadLucha())
+}
+
+test "La habilidad de lucha de la armadura con una bendicion de refuerzo es 58"{
+	armadura.refuerzo(bendicion)
+	assert.equals(58, armadura.unidadesDeLucha(rolando)) 
+}
+
+test "La habilidad de lucha de Ronaldo con una cota de malla de refuerzo es 3"{
+	armadura.refuerzo(cotaDeRolando)
+	assert.equals(3, armadura.unidadesDeLucha(rolando)) 
+}
+
+test "La habilidad de lucha de la armadura con un hechizo basico de refuerzo es 12"{
+	armadura.refuerzo(hechizoBasico)
+	assert.equals(12, armadura.unidadesDeLucha(rolando)) 
+}
+
+test "La habilidad de lucha de la armadura con el hechizo espectro malefico de refuerzo es 19"{
+	armadura.refuerzo(espectroMalefico)
+	assert.equals(19, armadura.unidadesDeLucha(rolando)) 
+}
+
+test "La habilidad de lucha de Rolando con un espejo es 1"{
+	rolando.removerTodosLosArtefactos()
+	rolando.agregarArtefacto(espejo)
+	assert.equals(1, rolando.habilidadLucha()) 
+}
+
+test "El nivel de hechiceria de Rolando con un libro de hechizos con espectro malefico y hechizo basico es 56"{
+	var libroDeHechizosDeRolando = new LibroDeHechizos([espectroMalefico,hechizoBasico])
+	rolando.hechizoPreferido(libroDeHechizosDeRolando)
+	assert.equals(56, rolando.nivelHechiceria()) 
+}
+
+test "agregar nueva armadura de 5 con malla 6 y tener 37 de lucha"{
+	var cotaNueva = new CotaDeMalla(6)
+	var armaduraNueva = new Armadura(cotaNueva,5)
+	rolando.agregarArtefacto(armaduraNueva)
+	assert.equals(37,rolando.habilidadLucha())
+}
+
+
+
+
+
+}

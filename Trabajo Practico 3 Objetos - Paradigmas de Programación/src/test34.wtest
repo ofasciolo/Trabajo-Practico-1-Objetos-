@@ -1,0 +1,54 @@
+import trabajoPractico1Objetos.*
+import Clases.*
+
+describe "tp3 punto 4"{
+	var pastoriza
+	var prieto
+	var fermepin
+	var hechizoBasico
+	var ursula
+	
+	fixture{
+		pastoriza = new Comerciante(independiente,[mascaraOscura],9)
+		prieto = new Comerciante(registrado,[mascaraOscura],0)
+		fermepin = new Comerciante(impositivo,[mascaraOscura],0)
+		impositivo.minimoNoImponible(5)
+		hechizoBasico = new Hechizo()
+		ursula = new Personaje(hechizoBasico,[],200)
+	}
+	
+	test "ursula compra a pastoriza"{
+		pastoriza.venderArtefacto(ursula,mascaraOscura)
+		assert.equals(89.1,ursula.oro())
+	}
+	test "ursula compra a prieto"{
+		prieto.venderArtefacto(ursula,mascaraOscura)
+		assert.equals(87.9,ursula.oro())
+	}	
+	test "ursula compra a fermepin"{
+		fermepin.venderArtefacto(ursula,mascaraOscura)
+		assert.equals(88.25,ursula.oro())
+	}		
+	test "ursula compra a pastoriza recategorizado"{
+		pastoriza.cambiarSituacionImpositiva()
+		pastoriza.venderArtefacto(ursula,mascaraOscura)
+		assert.equals(88.2,ursula.oro())
+	}
+	test "ursula compra a pastoriza recategoriza2"{
+		pastoriza.cambiarSituacionImpositiva()
+		pastoriza.cambiarSituacionImpositiva()
+		pastoriza.venderArtefacto(ursula,mascaraOscura)
+		assert.equals(87.9,ursula.oro())
+	}	
+	test "ursula compra a prieto recategorizado"{
+		prieto.cambiarSituacionImpositiva()
+		prieto.venderArtefacto(ursula,mascaraOscura)
+		assert.equals(88.25,ursula.oro())
+	}	
+	test "ursula compra a fermepin recategorizado"{
+		fermepin.cambiarSituacionImpositiva()
+		fermepin.venderArtefacto(ursula,mascaraOscura)
+		assert.equals(88.25,ursula.oro())
+	}		
+	
+}

@@ -1,0 +1,29 @@
+import trabajoPractico1Objetos.*
+import Clases.*
+
+describe "tp3 punto 1"{
+	
+	var espectroMalefico
+	var furibunda
+	
+	fixture{
+		espectroMalefico = new Logo("espectro malefico",1)
+		furibunda = new Personaje(hechizoComercial,[],200)
+	}
+	
+	test "saber nivel de hechiceria de furibunda"{
+		assert.equals(29,furibunda.nivelDeHechiceria())
+	}
+	
+	test "saber si el hech comercial es poderoso"{
+		assert.that(hechizoComercial.hechizoPoderoso())
+	}
+	
+	test "saber si el espectro malefico es poderoso"{
+		assert.that(espectroMalefico.hechizoPoderoso())
+	}
+	
+	
+	
+	
+}

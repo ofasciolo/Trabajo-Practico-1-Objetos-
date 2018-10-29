@@ -1,0 +1,144 @@
+import trabajoPractico1Objetos.*
+import Clases.*
+
+describe "Parte 4 (tp 3 punto 0)"{
+	
+	var xenia
+	var alacachulaCachicomula
+	var thor
+	var hechizoBasico
+	var loki
+	var armaduraSinRefuerzo
+	var armaduraConCota5
+	var cotaDe5
+	var armaduraConBendicion
+	var armaduraAlcachulada
+	var libroAlcachulado
+	var mockHnos
+	var collarDivino
+	var espejo
+	
+	fixture{
+		alacachulaCachicomula = new Logo("Alacachula Cachicomula",1)
+		hechizoBasico = new Hechizo()
+		xenia = new Personaje(alacachulaCachicomula,[],200)
+		thor = new Personaje(hechizoBasico,[],200)
+		loki = new Personaje(hechizoBasico,[],200)
+		loki.oro(5)
+		collarDivino = new CollarDivino(5,0,0)
+		armaduraSinRefuerzo = new Armadura(refuerzoNulo,2,0,0)
+		cotaDe5 = new CotaDeMalla(5)
+		armaduraConCota5 = new Armadura(cotaDe5,2,0,0)
+		armaduraConBendicion = new Armadura(bendicion,2,0,0)
+		armaduraAlcachulada = new Armadura(alacachulaCachicomula,2,0,0)
+		libroAlcachulado = new LibroDeHechizos([alacachulaCachicomula,hechizoBasico])
+		espejo = new Espejo(0,0)
+		feria.agregarArtefacto(espadaDelDestino)
+		feria.agregarArtefacto(collarDivino)
+		feria.agregarArtefacto(armaduraConCota5)
+		feria.agregarArtefacto(armaduraConBendicion)
+		feria.agregarArtefacto(armaduraAlcachulada)
+		feria.agregarArtefacto(armaduraSinRefuerzo)
+		feria.agregarArtefacto(espejo)
+		feria.agregarHechizo(libroAlcachulado)
+		feria.agregarHechizo(hechizoBasico)
+		feria.agregarHechizo(alacachulaCachicomula)
+		mockHnos = new Comerciante(independiente,[armaduraSinRefuerzo,espadaDelDestino,collarDivino,armaduraConCota5],0)
+	}
+	
+	test "saber el precio de lista de alacachula cachicomula (22)"{
+		assert.equals(22,alacachulaCachicomula.precio(xenia))
+	}
+	test "saber el precio de lista de hechizo basico (10)"{
+		assert.equals(10, hechizoBasico.precio(xenia))
+	}
+	test "saber el precio de lista de libro alcachulado (42)"{
+		assert.equals(42, libroAlcachulado.precio(xenia))
+	}
+	
+	test "xenia canjea hechizo basico"{
+		feria.canjearHechizoPreferido(xenia,hechizoBasico)
+		assert.equals(100,xenia.oro())
+	}
+	test "Thor canjea hechizo"{
+		feria.canjearHechizoPreferido(thor,alacachulaCachicomula)
+		assert.equals(83,thor.oro())
+	}
+	test "Thor canjea 2 hechizos"{
+		feria.canjearHechizoPreferido(thor,hechizoBasico)
+		feria.canjearHechizoPreferido(thor,hechizoBasico)
+		assert.equals(90,thor.oro())
+	}
+	test "Loki intenta cambiar hechizo"{
+		assert.throwsExceptionWithMessage("Excepcion de feria: Dinero insuficiente.",{=>feria.canjearHechizoPreferido(loki,alacachulaCachicomula)})
+	}
+	test "xenia compra un monton de cosas y le queda 70.5"{
+		mockHnos.venderArtefacto(xenia,espadaDelDestino)
+		mockHnos.venderArtefacto(xenia,collarDivino)
+		mockHnos.venderArtefacto(xenia,armaduraConCota5)
+		mockHnos.venderArtefacto(xenia,armaduraSinRefuerzo)
+		assert.equals(85.5,xenia.oro())
+	}
+	test "xenia es adicta al consumo y tiene 4 artefactos"{
+		mockHnos.venderArtefacto(xenia,espadaDelDestino)
+		mockHnos.venderArtefacto(xenia,collarDivino)
+		mockHnos.venderArtefacto(xenia,armaduraConCota5)
+		mockHnos.venderArtefacto(xenia,armaduraSinRefuerzo)
+		assert.equals(4,xenia.artefactos().size())		
+	}
+	test "thor compra armadura bendita y armadura alcachulada, le quedan 74 sope"{
+		feria.venderArtefacto(thor,armaduraConBendicion)
+		feria.venderArtefacto(thor,armaduraAlcachulada)
+		assert.equals(74,thor.oro())
+	}
+	test "loki quiere comprar el espejo pero es pobre"{
+		assert.throwsExceptionWithMessage("Excepcion de feria: Dinero insuficiente.",{=> feria.venderArtefacto(loki,espejo)})
+	}
+	test "xenia canjea al libro alcachulado, se queda con 69 pe"{
+		feria.canjearHechizoPreferido(xenia,libroAlcachulado)
+		assert.equals(69,xenia.oro())
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

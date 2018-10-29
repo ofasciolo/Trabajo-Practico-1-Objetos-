@@ -1,0 +1,70 @@
+import trabajoPractico1Objetos.*
+import Clases.*
+
+describe "tests 1"{
+
+	var rolando
+	var espectroMalefico
+	var hechizoBasico
+
+	fixture{
+		
+		espectroMalefico = new Logo("Espectro Malefico",1)
+		rolando = new Personaje(espectroMalefico,[])
+		hechizoBasico = new Hechizo()
+	}
+	
+	test "conocer el nivelHechiceria de Rolando" {
+		assert.equals(56, rolando.nivelHechiceria())
+	}
+
+	test "cambiar nombre a espectro malefico y conocer nivelHechiceria de Rolando"{
+		espectroMalefico.nombre("espectro superrecontramalefico muajajaja")
+		assert.equals(125, rolando.nivelHechiceria())
+	}
+
+	test "cambiar el hechizo preferido y conocer el nivelHechiceria de Rolando"{
+		rolando.hechizoPreferido(hechizoBasico)
+		assert.equals(35, rolando.nivelHechiceria())
+	}
+
+	test "hacer que ocurra un eclipse y conocer el nivelHechiceria de Rolando"{
+		fuerzaOscura.eclipse()
+		assert.equals(61, rolando.nivelHechiceria())
+	}
+
+	test"saber si el espectro malefico es poderoso"{
+		assert.that(espectroMalefico.hechizoPoderoso())
+	}
+
+	test "cambiar el nombre del espectro malefico y saber si es poderoso"{
+		espectroMalefico.nombre("pepe")
+		assert.that(! espectroMalefico.hechizoPoderoso())
+	}
+
+	test "el hechizoBasico no es poderoso"{
+		assert.that(! hechizoBasico.hechizoPoderoso())
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
